@@ -5,13 +5,10 @@
 const compression = require('compression')()
 const bodyParser = require('body-parser')
 const async = require('async')
-const path = require('path')
 const expressValidator = require('express-validator')
 const xssFilter = require('x-xss-protection')()
 const nocache = require('nocache')()
 const uuidV4 = require('uuid/v4')
-const moduleLoader = require('express-module-loader')
-const changeCase = require('change-case')
 
 const parallelMiddleware = middlewares => (req, res, next) => async.each(middlewares, (mw, cb) => mw(req, res, cb), next)
 
@@ -22,8 +19,8 @@ module.exports = (app) => {
   app.use(parallelMiddleware([
     xssFilter,
     nocache,
-    bodyParser.json({limit: '2mb'}),
-    bodyParser.urlencoded({extended: true, limit: '2mb', parameterLimit: 1000}),
+    bodyParser.json({ limit: '2mb' }),
+    bodyParser.urlencoded({ extended: true, limit: '2mb', parameterLimit: 1000 }),
     compression,
     expressValidator()
   ]))

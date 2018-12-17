@@ -1,3 +1,5 @@
+/* global NewsControllers */
+
 'use strict'
 
 var Route = express.Router()

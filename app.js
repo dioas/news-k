@@ -18,10 +18,10 @@ const server = require('http').createServer(app)
 
 app.config = CONFIG
 
-const db  = require('express-myconnection')
+const db = require('express-myconnection')
 
 app.use(
-  db(mysql,{
+  db(mysql, {
     host: CONFIG.DATABASE.HOST,
     user: CONFIG.DATABASE.USER,
     password: CONFIG.DATABASE.PASSWORD,
@@ -32,7 +32,7 @@ app.use(
 autoload((err, result) => {
   if (err) throw err
 
-	require(path.join(__dirname, '/app/config/express'))(app)
+  require(path.join(__dirname, '/app/config/express'))(app)
 
   server.listen(app.get('port'), () => {
     if (env === 'development') console.log(`\n✔ Kumparan ${CONFIG.SERVER.BASE_WEBHOST} in ${env} mode`)

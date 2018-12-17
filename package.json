@@ -4,7 +4,7 @@
   "description": "CRUD News",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run standard && NODE_PATH=./config:./app/controllers NODE_ENV=testing ./node_modules/.bin/mocha --exit --reporter spec --timeout 10000 test/*.js",
     "start": "nodemon app.js",
     "standard": "./node_modules/.bin/standard"
   },
@@ -38,8 +38,10 @@
     ]
   },
   "dependencies": {
+    "assert": "^1.4.1",
     "async": "^2.6.1",
     "body-parser": "^1.18.3",
+    "chai": "^4.2.0",
     "compression": "^1.7.3",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
@@ -50,7 +52,9 @@
     "mocha": "^5.2.0",
     "mysql": "^2.16.0",
     "nocache": "^2.0.0",
+    "should": "^13.2.3",
     "standard": "^12.0.1",
+    "supertest": "^3.3.0",
     "uuid": "^3.3.2",
     "x-xss-protection": "^1.1.0"
   },

@@ -1,3 +1,4 @@
+/* global _ */
 'use strict'
 
 const async = require('async')
@@ -183,7 +184,7 @@ exports.update = (req, res) => {
 
 exports.delete = (req, res) => {
   req.checkParams('newsId', 'News ID is required and must be integer value').notEmpty().isInt()
-  
+
   if (req.validationErrors()) {
     return MiscHelper.errorCustomStatus(res, req.validationErrors(true))
   }
