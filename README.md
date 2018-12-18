@@ -11,7 +11,7 @@ API for Kumparan News Feed
 <p>
   <img src="https://assets-a2.kompasiana.com/items/album/2017/02/10/active-1822476-960-720-589d1bbd9a9373a5048b4569.jpg?t=o&v=760" width="600">
   <blockquote>
-  Why News-K?
+  Project Setup
   </blockquote>
 </p>
 
