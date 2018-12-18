@@ -8,7 +8,7 @@ const topicRefModel = require('../models/topic_ref')
 
 exports.get = (req, res) => {
   newsModel.getNews(req, req.query, (errNews, resultNews) => {
-    if (!errNews && resultNews) {
+    if (!errNews) {
       return MiscHelper.responses(res, resultNews)
     } else {
       return MiscHelper.errorCustomStatus(res, errNews, 400)

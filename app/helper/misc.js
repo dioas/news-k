@@ -9,7 +9,7 @@ module.exports = {
     resultPrint.status = _.result(err, 'status') || 400
     resultPrint.errors = {}
 
-    if (_.isNil(status) && _.isObject(err)) {
+    if (_.isObject(err)) {
       resultPrint.errors.message = _.result(err, 'message') || _.result(err, 'msg') || 'Bad Request'
       resultPrint.errors.fields = err
     } else {

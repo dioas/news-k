@@ -1,6 +1,15 @@
 'use strict'
 
 module.exports = {
+  getTopic: (conn, callback) => {
+    conn.getConnection((err, connection) => {
+      if (err) console.error(err)
+
+      connection.query('SELECT * FROM topic_tab WHERE status = "active" ORDER BY id DESC', (err, rows) => {
+        callback(err, rows)
+      })
+    })
+  },
   checkTopic: (conn, data, callback) => {
     conn.getConnection((err, connection) => {
       if (err) console.error(err)
