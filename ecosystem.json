@@ -13,7 +13,7 @@
     "production" : {
       "user" : "palma",
       "host" : "178.128.30.132",
-      "ref"  : "origin/master",
+      "ref"  : "origin/prod",
       "repo" : "git@github.com:gratcy/news-k.git",
       "path" : "/home/palma/www/news-k",
       "pre-deploy-local" : "git checkout . && echo 'Please wait... Deploying in process...'",
