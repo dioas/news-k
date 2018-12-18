@@ -10,6 +10,18 @@
     }
   }],
   "deploy" : {
+    "staging" : {
+      "user" : "palma",
+      "host" : "178.128.30.133",
+      "ref"  : "origin/staging",
+      "repo" : "git@github.com:gratcy/news-k.git",
+      "path" : "/home/palma/www/news-k",
+      "pre-deploy-local" : "git checkout . && echo 'Please wait... Deploying in process...'",
+      "post-deploy" : "npm install && NODE_ENV=production pm2 reload news-k && pm2 ls && echo 'Please wait... Checking up the app starting up....' && sleep 7s && pm2 ls",
+      "env"  : {
+        "NODE_ENV": "production"
+      }
+    },
     "production" : {
       "user" : "palma",
       "host" : "178.128.30.132",
