@@ -7,7 +7,13 @@ const topicModel = require('../models/topic')
 const topicRefModel = require('../models/topic_ref')
 
 exports.get = (req, res) => {
-
+  newsModel.getNews(req, req.query, (errNews, resultNews) => {
+    if (!errNews && resultNews) {
+      return MiscHelper.responses(res, resultNews)
+    } else {
+      return MiscHelper.errorCustomStatus(res, errNews, 400)
+    }
+  })
 }
 
 exports.create = (req, res) => {
@@ -116,6 +122,9 @@ exports.update = (req, res) => {
       }
 
       newsModel.update(req, newsId, news, (err, resultNews) => {
+        if (_.isEmpty(resultNews)) {
+          return MiscHelper.notFound(res, 'News not found.')
+        }
         cb(err, resultNews)
       })
     },
@@ -168,9 +177,9 @@ exports.update = (req, res) => {
             }
           }
         })
-      }, err => {
+      }, errUpdate => {
         newsData.topic = topicArr
-        cb(err, newsData)
+        cb(errUpdate, newsData)
       })
     }
   ], (err, result) => {
@@ -199,6 +208,9 @@ exports.delete = (req, res) => {
   async.parallel({
     news: cb => {
       newsModel.update(req, newsId, news, (errNewsDeleted, resultNewsDeleted) => {
+        if (_.isEmpty(resultNewsDeleted)) {
+          return MiscHelper.notFound(res, 'News not found.')
+        }
         cb(errNewsDeleted, resultNewsDeleted)
       })
     },
@@ -207,11 +219,11 @@ exports.delete = (req, res) => {
         cb(errDeleteTopicRef, { topicDeleted: resutDeletedTopicRef })
       })
     }
-  }, (err, resultDeleted) => {
-    if (!err && resultDeleted) {
+  }, (errDeleted, resultDeleted) => {
+    if (!errDeleted && resultDeleted) {
       return MiscHelper.responses(res, resultDeleted)
     } else {
-      return MiscHelper.errorCustomStatus(res, err, 400)
+      return MiscHelper.errorCustomStatus(res, errDeleted, 400)
     }
   })
 }
