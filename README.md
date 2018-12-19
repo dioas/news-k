@@ -42,7 +42,7 @@ To setup on production you just config all access to your service on [ecosystem.
 **Start application for firstime on production server**
 
 ```
-$ npm run start:production
+$ npm run start-production
 
 ```
 
