@@ -2,10 +2,19 @@
 
 module.exports = {
   getTopic: (conn, callback) => {
-    conn.getConnection((err, connection) => {
-      if (err) console.error(err)
+    conn.getConnection((errConnection, connection) => {
+      if (errConnection) console.error(errConnection)
 
       connection.query('SELECT * FROM topic_tab WHERE status = "active" ORDER BY id DESC', (err, rows) => {
+        callback(err, rows)
+      })
+    })
+  },
+  checkTopicByNews: (conn, newsId, callback) => {
+    conn.getConnection((errConnection, connection) => {
+      if (errConnection) console.error(errConnection)
+
+      connection.query('SELECT b.id,b.topic FROM topic_ref_tab a JOIN topic_tab b ON a.topic_id=b.id AND a.news_id = ? WHERE status = "active"', newsId, (err, rows) => {
         callback(err, rows)
       })
     })
@@ -20,8 +29,8 @@ module.exports = {
     })
   },
   insert: (conn, data, callback) => {
-    conn.getConnection((err, connection) => {
-      if (err) console.error(err)
+    conn.getConnection((errConnection, connection) => {
+      if (errConnection) console.error(errConnection)
 
       connection.query('INSERT INTO topic_tab SET ? ', data, (err, rows) => {
         if (err) {
@@ -33,8 +42,8 @@ module.exports = {
     })
   },
   update: (conn, id, data, callback) => {
-    conn.getConnection((err, connection) => {
-      if (err) console.error(err)
+    conn.getConnection((errConnection, connection) => {
+      if (errConnection) console.error(errConnection)
 
       connection.query('UPDATE topic_tab SET ? WHERE id = ? ', [data, id], (errUpdate, resultUpdate) => {
         callback(errUpdate, resultUpdate.affectedRows > 0 ? _.merge(data, { id: id }) : [])

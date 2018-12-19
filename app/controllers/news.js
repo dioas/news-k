@@ -7,7 +7,25 @@ const topicModel = require('../models/topic')
 const topicRefModel = require('../models/topic_ref')
 
 exports.get = (req, res) => {
-  newsModel.getNews(req, req.query, (errNews, resultNews) => {
+  async.waterfall([
+    (cb) => {
+      newsModel.getNews(req, req.query, (errNews, resultNews) => {
+        cb(errNews, resultNews)
+      })
+    },
+    (dataNews, cb) => {
+      const listNews = []
+      async.eachSeries(dataNews, (news, nextNews) => {
+        topicModel.checkTopicByNews(req, news.id, (errTopic, resultTopic) => {
+          if (errTopic) console.error(errTopic)
+          listNews.push(_.merge(news, { topics: resultTopic }))
+          nextNews()
+        })
+      }, errMergeNews => {
+        cb(errMergeNews, listNews)
+      })
+    }
+  ], (errNews, resultNews) => {
     if (!errNews) {
       return MiscHelper.responses(res, resultNews)
     } else {
