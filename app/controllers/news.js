@@ -86,7 +86,7 @@ exports.create = (req, res) => {
           }
         })
       }, err => {
-        newsData.topic = topicArr
+        newsData.topics = topicArr
         cb(err, newsData)
       })
     }
@@ -121,11 +121,11 @@ exports.update = (req, res) => {
         updated: new Date()
       }
 
-      newsModel.update(req, newsId, news, (err, resultNews) => {
-        if (_.isEmpty(resultNews)) {
+      newsModel.update(req, newsId, news, (errUpdate, resultUpdate) => {
+        if (_.isEmpty(resultUpdate)) {
           return MiscHelper.notFound(res, 'News not found.')
         }
-        cb(err, resultNews)
+        cb(errUpdate, resultUpdate)
       })
     },
     (newsData, cb) => {
@@ -178,7 +178,7 @@ exports.update = (req, res) => {
           }
         })
       }, errUpdate => {
-        newsData.topic = topicArr
+        newsData.topics = topicArr
         cb(errUpdate, newsData)
       })
     }
