@@ -2,8 +2,8 @@
 
 module.exports = {
   getNews: (conn, data, callback) => {
-    conn.getConnection((err, connection) => {
-      if (err) console.error(err)
+    conn.getConnection((errConnection, connection) => {
+      if (errConnection) console.error(errConnection)
 
       let sql = ''
 
@@ -19,14 +19,14 @@ module.exports = {
         sql += `c.topic IN ("${data.topics.join(`","`)}")`
       }
 
-      connection.query(`SELECT a.*,c.topic FROM news_tab a LEFT JOIN topic_ref_tab b ON a.id=b.news_id JOIN topic_tab c ON b.topic_id=c.id ${sql}`, (err, rows, fields) => {
+      connection.query(`SELECT a.* FROM news_tab a LEFT JOIN topic_ref_tab b ON a.id=b.news_id JOIN topic_tab c ON b.topic_id=c.id ${sql}`, (err, rows, fields) => {
         callback(err, rows)
       })
     })
   },
   insert: (conn, data, callback) => {
-    conn.getConnection((err, connection) => {
-      if (err) console.error(err)
+    conn.getConnection((errConnection, connection) => {
+      if (errConnection) console.error(errConnection)
 
       connection.query('INSERT INTO news_tab SET ? ', data, (err, rows) => {
         if (err) {
@@ -38,8 +38,8 @@ module.exports = {
     })
   },
   update: (conn, id, data, callback) => {
-    conn.getConnection((err, connection) => {
-      if (err) console.error(err)
+    conn.getConnection((errConnection, connection) => {
+      if (errConnection) console.error(errConnection)
 
       connection.query('UPDATE news_tab SET ? WHERE id = ? ', [data, id], (errUpdate, resultUpdate) => {
         callback(errUpdate, resultUpdate.affectedRows > 0 ? _.merge(data, { id: id }) : [])

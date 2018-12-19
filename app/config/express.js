@@ -4,6 +4,7 @@
 
 const compression = require('compression')()
 const bodyParser = require('body-parser')
+const path = require('path')
 const async = require('async')
 const expressValidator = require('express-validator')
 const xssFilter = require('x-xss-protection')()
@@ -25,12 +26,24 @@ module.exports = (app) => {
     expressValidator()
   ]))
 
+  if (app.get('env') === 'development') {
+    const morgan = require('morgan')
+    const responseTime = require('response-time')()
+    const errorHandler = require('errorhandler')()
+
+    app.use(morgan('dev'))
+    app.use(responseTime)
+    app.use(errorHandler)
+    app.use('/doc', express.static(path.join(__dirname, '../../doc')))
+  }
+
   require(CONFIG.ROOT + '/app/routes')(app)
 
   app.use((err, req, res, next) => {
     if (err.message && (~err.message.indexOf('not found') || (~err.message.indexOf('Cast to ObjectId failed')))) {
       return next()
     }
+
     const errorResults = {}
 
     errorResults.message = err.stack
