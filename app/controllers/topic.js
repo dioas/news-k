@@ -70,7 +70,6 @@ exports.update = (req, res) => {
     (cb) => {
       topicModel.checkTopic(req, topic, (errCheck, resultCheck) => {
         if (!_.isEmpty(resultCheck)) {
-          console.log(resultCheck)
           if (resultCheck.topic === topic) {
             cb(null)
           } else {
