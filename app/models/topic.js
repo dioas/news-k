@@ -37,7 +37,7 @@ module.exports = {
       if (err) console.error(err)
 
       connection.query('UPDATE topic_tab SET ? WHERE id = ? ', [data, id], (errUpdate, resultUpdate) => {
-        callback(errUpdate, resultUpdate.changedRows > 0 ? _.merge(data, { id: id }) : [])
+        callback(errUpdate, resultUpdate.affectedRows > 0 ? _.merge(data, { id: id }) : [])
       })
     })
   }

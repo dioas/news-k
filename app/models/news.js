@@ -11,7 +11,7 @@ module.exports = {
         sql += `WHERE a.status IN ('${data.status.join(`','`)}')`
       }
 
-      if (_.result(data, 'status') && !_.isEmpty(data.status)) {
+      if (_.result(data, 'topics') && !_.isEmpty(data.topics)) {
         if (!_.isEmpty(sql)) {
           sql += ' AND '
         }
@@ -19,7 +19,7 @@ module.exports = {
         sql += `c.topic IN ('${data.topics.join(`','`)}')`
       }
 
-      connection.query(`SELECT a.*,c.topic FROM news_tab a LEFT JOIN topic_ref_tab b ON a.id=b.news_id JOIN topic_tab c ON b.topic_id=c.id ${sql}`, data, (err, rows, fields) => {
+      connection.query(`SELECT a.*,c.topic FROM news_tab a LEFT JOIN topic_ref_tab b ON a.id=b.news_id JOIN topic_tab c ON b.topic_id=c.id ${sql}`, (err, rows, fields) => {
         callback(err, rows)
       })
     })
@@ -42,7 +42,7 @@ module.exports = {
       if (err) console.error(err)
 
       connection.query('UPDATE news_tab SET ? WHERE id = ? ', [data, id], (errUpdate, resultUpdate) => {
-        callback(errUpdate, resultUpdate.changedRows > 0 ? _.merge(data, { id: id }) : [])
+        callback(errUpdate, resultUpdate.affectedRows > 0 ? _.merge(data, { id: id }) : [])
       })
     })
   }

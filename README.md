@@ -5,6 +5,7 @@ API for Kumparan News Feed
 
 
 [Installation](#installation) |
+[API Documentation](#api-documentation) |
 [Production Environment](#production-environment) |
 [License](#license)
 
@@ -15,6 +16,10 @@ API for Kumparan News Feed
   </blockquote>
 </p>
 
+
+## API Documentation
+API Documentation by Postman
+[https://documenter.getpostman.com/view/537028/RzfnkSYc#d54b65f2-089a-4bd4-8552-e8cea0b03330](https://documenter.getpostman.com/view/537028/RzfnkSYc#d54b65f2-089a-4bd4-8552-e8cea0b03330)
 
 ## Installation
 
@@ -30,7 +35,7 @@ API for Kumparan News Feed
   $ npm start
 ```
 
-### Production Environment
+## Production Environment
 
 To setup on production you just config all access to your service on [ecosystem.json](https://github.com/urbanhire/jarvis/blob/dev/ecosystem.json). We use [PM2](https://pm2.io/doc/en/runtime/overview) to deploy our apps to production from you local machine and we use `PM2 Runtime` to running process manager on production
 
