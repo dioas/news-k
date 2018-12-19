@@ -12,7 +12,7 @@
   "deploy" : {
     "staging" : {
       "user" : "palma",
-      "host" : "178.128.30.133",
+      "host" : "172.104.40.165",
       "ref"  : "origin/staging",
       "repo" : "git@github.com:gratcy/news-k.git",
       "path" : "/home/palma/www/news-k",
@@ -24,7 +24,7 @@
     },
     "production" : {
       "user" : "palma",
-      "host" : "178.128.30.132",
+      "host" : "172.104.40.164",
       "ref"  : "origin/prod",
       "repo" : "git@github.com:gratcy/news-k.git",
       "path" : "/home/palma/www/news-k",

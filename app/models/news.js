@@ -16,7 +16,7 @@ module.exports = {
           sql += ' AND '
         }
 
-        sql += `c.topic IN ('${data.topics.join(`','`)}')`
+        sql += `c.topic IN ("${data.topics.join(`","`)}")`
       }
 
       connection.query(`SELECT a.*,c.topic FROM news_tab a LEFT JOIN topic_ref_tab b ON a.id=b.news_id JOIN topic_tab c ON b.topic_id=c.id ${sql}`, (err, rows, fields) => {
